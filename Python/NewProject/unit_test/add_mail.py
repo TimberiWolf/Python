@@ -44,10 +44,7 @@ while num<row_num:
             sleep(1)
             driver.find_element_by_css_selector("item[data-value=Email]").click()
             sleep(2)
-            element=driver.find_element_by_xpath("//right[@data-tap='Top']//div[data-value='Append']").click()
-            # Actionchains(self.driver).move_to_element(element).perform
-            # driver.execute_script('arguments[0].click',element)
-            # driver.find_element_by_xpath("//div[@data-value='Append' and text()='添加']").click()
+            driver.find_element_by_xpath("//right[@data-tap='Top']//div[@data-value='Append']").click()
             sleep(1)
             driver.find_element_by_css_selector("input[data-name=Number]").send_keys('10015')
             sleep(1)
