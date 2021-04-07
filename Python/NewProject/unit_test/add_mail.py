@@ -3,6 +3,8 @@ from selenium import webdriver
 from time import sleep
 import csv
 import time
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 # 以utf-8-sig的编码格式打开文件，-sig加上避免转义，UTF-8 with BOM即utf-8-sig
 bid_info=csv.DictReader(open('template_item.csv',encoding='utf-8-sig'))
@@ -36,15 +38,21 @@ while num<row_num:
         def test_addmail(self):
             driver=self.driver
             driver.get(self.base_url)
-            driver.set_window_size(1920,1080)
+            driver.maximize_window()#设置窗口最大化
+            # driver.set_window_size(1920,1080)#设置窗口分辨率
             driver.find_element_by_name('Account').send_keys('admin1')
             driver.find_element_by_name('Password').send_keys('cd@snqp@123')
             sleep(1)
             driver.find_element_by_css_selector("button[data-tap=Submit]").click()
             sleep(1)
             driver.find_element_by_css_selector("item[data-value=Email]").click()
-            sleep(2)
-            driver.find_element_by_xpath("//right[@data-tap='Top']//div[@data-value='Append']").click()
+            sleep(3)
+            # driver.find_element_by_css_selector("div[data-value=Append]").send_keys(Keys.ENTER)
+            element=driver.find_element_by_xpath("//*[text()='添加']").click()
+            driver.ActionChains(driver).move_to_element(element).click(element).perform()#鼠标悬停方法
+            # driver.execute_script('arguments[0].click();',element)
+            # js='document.getElementByCssSelector("div[data-value=Append]"]).click()'
+            # driver.execute_script(js)
             sleep(1)
             driver.find_element_by_css_selector("input[data-name=Number]").send_keys('10015')
             sleep(1)
